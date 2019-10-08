@@ -52,7 +52,7 @@ list_snippets() {
     snippets=""
     for file in $files
     do
-	description=$(cat $snip_dir/$file | head -5 | grep "#" | tr -d "#")
+	description=$(cat $snip_dir/$file | head -5 | grep "#" | tr -d "#\n")
 	snip="$file:$description"
 	snippets="$snippets $snip \n"	
     done
