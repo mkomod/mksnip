@@ -8,7 +8,7 @@ A shortcut used to quickly print snippets of code from a given directory to the 
 $ git clone https://github.com/mkomod/mksnip
 ```
 
-** Note ** the script should be installed in a relevant path accessible to your bash profile, or the path made available within you bash session. *i.e.* by setting `$PATH`.
+**Note** the script should be installed in a relevant path accessible to your bash profile, or the path made available within you bash session. *i.e.* by setting `$PATH`.
 
 
 ## Usage
