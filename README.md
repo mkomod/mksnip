@@ -30,7 +30,7 @@ Optional Arguments:
 $ mksnip -t ~/MSc/CodeTemplates/ eda.r
 ```
 
-** Note there is a default snip directory set in the source, the path should be changed, this is used as the default directory and speeds up getting snippets.
+**Note** there is a default snip directory set in the source, the path should be changed, this is used as the default directory and speeds up getting snippets.
 
 
 
