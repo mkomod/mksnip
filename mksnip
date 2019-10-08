@@ -1,0 +1,81 @@
+#!/usr/bin/env sh
+
+OPTIND=1 # for POSIX compliance
+
+show_help() {
+  echo "Usage: mksnip [-t snip_dir] [-l] [snip_name]
+
+Optional Arguments:
+  -h, ? 		Show this help text
+  snip_name		Name of the code snippet, if left blank
+			a list of snippets is printed.
+  -t snip_dir		Path to code snippets template
+  -l			List snippets in template directory 
+"
+}
+
+snip_dir="$HOME/MSc/CodeTemplates/"
+
+while getopts "h?lt:" opt; do
+    case "$opt" in
+    h|\?)
+        show_help
+        exit 0
+        ;;
+    t)  snip_dir=$OPTARG
+	;;
+    l)  list=1
+	;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+[ "${1:-}" = "--" ] && shift
+
+if [ ! -d "$snip_dir" ]; then
+    echo "Template directory not found"
+    exit 0
+fi
+
+snippet=$1
+
+list_snippets() {
+    #
+    # Lists the available snippets in a given directory
+    # and provides a description taken from the comments made
+    # within the first 5 lines of the file.
+    #
+
+    files=$(ls $snip_dir)
+
+    snippets=""
+    for file in $files
+    do
+	description=$(cat $snip_dir/$file | head -5 | grep "#" | tr -d "#")
+	snip="$file:$description"
+	snippets="$snippets $snip \n"	
+    done
+
+    printf "$snippets" | column -t -s ":" -N "snippet,description" -W 2 -L
+}
+
+show_snippet() {
+    # Prints the snippet to the console
+    #
+    # Args:
+    #	$1: (string) snippet name
+    #
+    cat $snip_dir$1
+}
+
+
+if [ $list ] || [ -z $snippet ]; then
+    list_snippets
+    exit 0
+fi
+
+if [ ! -z $snippet ]; then
+    show_snippet $snippet
+fi
+
